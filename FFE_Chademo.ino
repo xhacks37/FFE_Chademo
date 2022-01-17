@@ -144,8 +144,8 @@ unsigned char len = 0;
 unsigned char rxBuf[8];
 CAN_FRAME inFrame;
 
-MCP_CAN CAN00(12);
-MCP_CAN CAN01(11);
+MCP_CAN CAN00(11);
+MCP_CAN CAN01(12);
 
 void defaults() {
   myVars.CarCan = 0;
@@ -268,45 +268,45 @@ So when our digital outputs are high, the floating inputs to the optoisolators w
     //Can1.enable();
     //Compatibility Checks
 
-    myVars.outFrame.id = 0x100;
-    myVars.outFrame.data.bytes[0] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[1] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[2] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[3] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[4] = 0x6C; // max battery voltage
-    myVars.outFrame.data.bytes[5] = 0x01; // max battery voltage
-    myVars.outFrame.data.bytes[6] = 0x64; // constant for SOC indication
-    myVars.outFrame.data.bytes[7] = 0x00; // ZERO Byte
+    myVars.outFrame.id = 100;
+    myVars.outFrame.data.bytes[0] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[1] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[2] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[3] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[4] = 6C; // max battery voltage
+    myVars.outFrame.data.bytes[5] = 01; // max battery voltage
+    myVars.outFrame.data.bytes[6] = 64; // constant for SOC indication
+    myVars.outFrame.data.bytes[7] = 00; // ZERO Byte
     sendCAN(myVars.ChademoCan); // myVars.ChademoCan is defaulted to 2, which should send thie message to serial *but* sendCAN() does nothing with the value passed and just sends to CAN1 (CHAdeMO)
     delay(1);
 
-    myVars.outFrame.id = 0x101;
-    myVars.outFrame.data.bytes[0] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[1] = 0xFF; // max charging time by 10s
+    myVars.outFrame.id = 101;
+    myVars.outFrame.data.bytes[0] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[1] = FF; // max charging time by 10s
     myVars.outFrame.data.bytes[2] = maxchatime; // max charging time by 1 min
     myVars.outFrame.data.bytes[3] = estchatime; // estimated charging time
-    myVars.outFrame.data.bytes[4] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[5] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[6] = 0x00; // ZERO Byte
-    myVars.outFrame.data.bytes[7] = 0x00; // ZERO Byte
+    myVars.outFrame.data.bytes[4] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[5] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[6] = 00; // ZERO Byte
+    myVars.outFrame.data.bytes[7] = 00; // ZERO Byte
     sendCAN(myVars.ChademoCan);
     delay(1);
 
-    myVars.outFrame.id = 0x102;
-    myVars.outFrame.data.bytes[0] = 0x01; // version number
-    myVars.outFrame.data.bytes[1] = 0x68; // target battery voltage
-    myVars.outFrame.data.bytes[2] = 0x01; // target battery voltage
-    myVars.outFrame.data.bytes[3] = 0x00; // requested current
-    myVars.outFrame.data.bytes[4] = 0x00; // fault flag
-    myVars.outFrame.data.bytes[5] = 0x08; // status flag (charging disabled, contact open)
+    myVars.outFrame.id = 102;
+    myVars.outFrame.data.bytes[0] = 01; // version number
+    myVars.outFrame.data.bytes[1] = 68; // target battery voltage
+    myVars.outFrame.data.bytes[2] = 01; // target battery voltage
+    myVars.outFrame.data.bytes[3] = 00; // requested current
+    myVars.outFrame.data.bytes[4] = 00; // fault flag
+    myVars.outFrame.data.bytes[5] = 08; // status flag (charging disabled, contact open)
     myVars.outFrame.data.bytes[6] = socint; // displayed SOC
-    myVars.outFrame.data.bytes[7] = 0x00; // ZERO Byte
+    myVars.outFrame.data.bytes[7] = 00; // ZERO Byte
     sendCAN(myVars.ChademoCan);
     delay(1);
 
     //Compatability Checker
 
-    if (compat == 1) { // compat defaults to 0, set to 1 with CHAdeMO CAN Frame 0x108
+    if (compat == 1) { // compat defaults to 0, set to 1 with CHAdeMO CAN Frame 108
       incra++;
     }
     else if (compat == 2) { // I can only guess this was a way to stop the proecss to check the handshake, no code sets this value to anything but 0 or 1
@@ -323,80 +323,80 @@ So when our digital outputs are high, the floating inputs to the optoisolators w
     }
   }
   else if (seq == 2) {
-    myVars.outFrame.id = 0x100;
-    myVars.outFrame.data.bytes[0] = 0x00;
-    myVars.outFrame.data.bytes[1] = 0x00;
-    myVars.outFrame.data.bytes[2] = 0x00;
-    myVars.outFrame.data.bytes[3] = 0x00;
-    myVars.outFrame.data.bytes[4] = 0x6C; // max battery voltage
-    myVars.outFrame.data.bytes[5] = 0x01; // max battery voltage
-    myVars.outFrame.data.bytes[6] = 0x64; // constant for SOC indication
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.id = 100;
+    myVars.outFrame.data.bytes[0] = 00;
+    myVars.outFrame.data.bytes[1] = 00;
+    myVars.outFrame.data.bytes[2] = 00;
+    myVars.outFrame.data.bytes[3] = 00;
+    myVars.outFrame.data.bytes[4] = 6C; // max battery voltage
+    myVars.outFrame.data.bytes[5] = 01; // max battery voltage
+    myVars.outFrame.data.bytes[6] = 64; // constant for SOC indication
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
 
-    myVars.outFrame.id = 0x101;
-    myVars.outFrame.data.bytes[0] = 0x00;
-    myVars.outFrame.data.bytes[1] = 0xFF; //max charging time by 10s
+    myVars.outFrame.id = 101;
+    myVars.outFrame.data.bytes[0] = 00;
+    myVars.outFrame.data.bytes[1] = FF; //max charging time by 10s
     myVars.outFrame.data.bytes[2] = maxchatime; //max charging time by 1 min
     myVars.outFrame.data.bytes[3] = estchatime; //estimated charging time
-    myVars.outFrame.data.bytes[4] = 0x00;
-    myVars.outFrame.data.bytes[5] = 0x00;
-    myVars.outFrame.data.bytes[6] = 0x00;
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.data.bytes[4] = 00;
+    myVars.outFrame.data.bytes[5] = 00;
+    myVars.outFrame.data.bytes[6] = 00;
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
 
     //Vehicle permission given, start isolation checks, EV contactor open still
-    myVars.outFrame.id = 0x102;
-    myVars.outFrame.data.bytes[0] = 0x01; // version number
-    myVars.outFrame.data.bytes[1] = 0x68; // target battery voltage
-    myVars.outFrame.data.bytes[2] = 0x01; // target battery voltage
-    myVars.outFrame.data.bytes[3] = 0x00; // requested current
-    myVars.outFrame.data.bytes[4] = 0x00; // fault flag
-    myVars.outFrame.data.bytes[5] = 0x09; // status flag (charging enabled, contact open)
+    myVars.outFrame.id = 102;
+    myVars.outFrame.data.bytes[0] = 01; // version number
+    myVars.outFrame.data.bytes[1] = 68; // target battery voltage
+    myVars.outFrame.data.bytes[2] = 01; // target battery voltage
+    myVars.outFrame.data.bytes[3] = 00; // requested current
+    myVars.outFrame.data.bytes[4] = 00; // fault flag
+    myVars.outFrame.data.bytes[5] = 09; // status flag (charging enabled, contact open)
     myVars.outFrame.data.bytes[6] = socint; // displayed SOC
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
     incra = 0;
   }
 
   else if (seq == 3) {
-    myVars.outFrame.id = 0x100;
-    myVars.outFrame.data.bytes[0] = 0x00;
-    myVars.outFrame.data.bytes[1] = 0x00;
-    myVars.outFrame.data.bytes[2] = 0x00;
-    myVars.outFrame.data.bytes[3] = 0x00;
-    myVars.outFrame.data.bytes[4] = 0x6C; // max battery voltage
-    myVars.outFrame.data.bytes[5] = 0x01; // max battery voltage
-    myVars.outFrame.data.bytes[6] = 0x64; // constat for SOC indication
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.id = 100;
+    myVars.outFrame.data.bytes[0] = 00;
+    myVars.outFrame.data.bytes[1] = 00;
+    myVars.outFrame.data.bytes[2] = 00;
+    myVars.outFrame.data.bytes[3] = 00;
+    myVars.outFrame.data.bytes[4] = 6C; // max battery voltage
+    myVars.outFrame.data.bytes[5] = 01; // max battery voltage
+    myVars.outFrame.data.bytes[6] = 64; // constat for SOC indication
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
 
-    myVars.outFrame.id = 0x101;
-    myVars.outFrame.data.bytes[0] = 0x00;
-    myVars.outFrame.data.bytes[1] = 0xFF; // max charging time by 10s
+    myVars.outFrame.id = 101;
+    myVars.outFrame.data.bytes[0] = 00;
+    myVars.outFrame.data.bytes[1] = FF; // max charging time by 10s
     myVars.outFrame.data.bytes[2] = maxchatime; // max charging time by 1 min
     myVars.outFrame.data.bytes[3] = estchatime; // estimated charging time
-    myVars.outFrame.data.bytes[4] = 0x00;
-    myVars.outFrame.data.bytes[5] = 0x00;
-    myVars.outFrame.data.bytes[6] = 0x00;
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.data.bytes[4] = 00;
+    myVars.outFrame.data.bytes[5] = 00;
+    myVars.outFrame.data.bytes[6] = 00;
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
 
-    //Vehicle permission given, EV contactor has closed, wait to request current until 0x109.5.1 and indicate closed relay
-    myVars.outFrame.id = 0x102;
-    myVars.outFrame.data.bytes[0] = 0x01; // version number
-    myVars.outFrame.data.bytes[1] = 0x68; // target battery voltage
-    myVars.outFrame.data.bytes[2] = 0x01; // target battery voltage
-    myVars.outFrame.data.bytes[3] = 0x00; // requested current
-    myVars.outFrame.data.bytes[4] = 0x00; // fault flag
-    myVars.outFrame.data.bytes[5] = 0x01; // status flag (charging enabled, contact closed)
+    //Vehicle permission given, EV contactor has closed, wait to request current until 109.5.1 and indicate closed relay
+    myVars.outFrame.id = 102;
+    myVars.outFrame.data.bytes[0] = 01; // version number
+    myVars.outFrame.data.bytes[1] = 68; // target battery voltage
+    myVars.outFrame.data.bytes[2] = 01; // target battery voltage
+    myVars.outFrame.data.bytes[3] = 00; // requested current
+    myVars.outFrame.data.bytes[4] = 00; // fault flag
+    myVars.outFrame.data.bytes[5] = 01; // status flag (charging enabled, contact closed)
     myVars.outFrame.data.bytes[6] = socint; // displayed SOC
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
     incra++;
@@ -413,50 +413,50 @@ So when our digital outputs are high, the floating inputs to the optoisolators w
     if (batchadspl > 99.5) {
       vehstop = 1;
     }
-    myVars.outFrame.id = 0x100;
-    myVars.outFrame.data.bytes[0] = 0x00;
-    myVars.outFrame.data.bytes[1] = 0x00;
-    myVars.outFrame.data.bytes[2] = 0x00;
-    myVars.outFrame.data.bytes[3] = 0x00;
-    myVars.outFrame.data.bytes[4] = 0x6C; // max battery voltage
-    myVars.outFrame.data.bytes[5] = 0x01; // max battery voltage
-    myVars.outFrame.data.bytes[6] = 0x64; // constat for SOC indication
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.id = 100;
+    myVars.outFrame.data.bytes[0] = 00;
+    myVars.outFrame.data.bytes[1] = 00;
+    myVars.outFrame.data.bytes[2] = 00;
+    myVars.outFrame.data.bytes[3] = 00;
+    myVars.outFrame.data.bytes[4] = 6C; // max battery voltage
+    myVars.outFrame.data.bytes[5] = 01; // max battery voltage
+    myVars.outFrame.data.bytes[6] = 64; // constat for SOC indication
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
 
-    myVars.outFrame.id = 0x101;
-    myVars.outFrame.data.bytes[0] = 0x00;
-    myVars.outFrame.data.bytes[1] = 0xFF; // max charging time by 10s
+    myVars.outFrame.id = 101;
+    myVars.outFrame.data.bytes[0] = 00;
+    myVars.outFrame.data.bytes[1] = FF; // max charging time by 10s
     myVars.outFrame.data.bytes[2] = maxchatime; // max charging time by 1 min
     myVars.outFrame.data.bytes[3] = estchatime; // estimated charging time
-    myVars.outFrame.data.bytes[4] = 0x00;
-    myVars.outFrame.data.bytes[5] = 0x00;
-    myVars.outFrame.data.bytes[6] = 0x00;
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.data.bytes[4] = 00;
+    myVars.outFrame.data.bytes[5] = 00;
+    myVars.outFrame.data.bytes[6] = 00;
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
 
     //Vehicle permission given, EV contactor has closed, start requesting and indicate closed relay
-    myVars.outFrame.id = 0x102;
-    myVars.outFrame.data.bytes[0] = 0x01; // version number
-    myVars.outFrame.data.bytes[1] = 0x68; // target battery voltage
-    myVars.outFrame.data.bytes[2] = 0x01; // target battery voltage
+    myVars.outFrame.id = 102;
+    myVars.outFrame.data.bytes[0] = 01; // version number
+    myVars.outFrame.data.bytes[1] = 68; // target battery voltage
+    myVars.outFrame.data.bytes[2] = 01; // target battery voltage
     myVars.outFrame.data.bytes[3] = chacurrent; // requested current
-    myVars.outFrame.data.bytes[4] = 0x00; // fault flag
+    myVars.outFrame.data.bytes[4] = 00; // fault flag
     if ((chastop == 1 && incra > 20) || vehstop == 1) {
-      myVars.outFrame.data.bytes[5] = 0x00; // status flag (charging enabled, contact closed)
+      myVars.outFrame.data.bytes[5] = 00; // status flag (charging enabled, contact closed)
       zerocurrentwait++;
      
     }
     else {
 
-      myVars.outFrame.data.bytes[5] = 0x01; // status flag (charging enabled, contact closed)
+      myVars.outFrame.data.bytes[5] = 01; // status flag (charging enabled, contact closed)
       zerocurrentwait = 0;
       
     }
     myVars.outFrame.data.bytes[6] = socint; // displayed SOC
-    myVars.outFrame.data.bytes[7] = 0x00;
+    myVars.outFrame.data.bytes[7] = 00;
     sendCAN(myVars.ChademoCan);
     delay(1);
     incra++;
@@ -504,12 +504,12 @@ So when our digital outputs are high, the floating inputs to the optoisolators w
   else if (seq == 5) {
     chacurrent = 0;
     //Permission Revoked, EV contactor has opened
-    myVars.outFrame.id = 0x102;
-    myVars.outFrame.data.bytes[0] = 0x01;//version number
-    myVars.outFrame.data.bytes[1] = 0x68;//target battery voltage
-    myVars.outFrame.data.bytes[2] = 0x01;//target battery voltage
-    myVars.outFrame.data.bytes[3] = 0x00;//requested current
-    myVars.outFrame.data.bytes[4] = 0x00;//fault flag
+    myVars.outFrame.id = 102;
+    myVars.outFrame.data.bytes[0] = 01;//version number
+    myVars.outFrame.data.bytes[1] = 68;//target battery voltage
+    myVars.outFrame.data.bytes[2] = 01;//target battery voltage
+    myVars.outFrame.data.bytes[3] = 00;//requested current
+    myVars.outFrame.data.bytes[4] = 00;//fault flag
     if (chaenable == 0) {
       digitalWrite(ContactorControl, LOW);
       myVars.outFrame.data.bytes[5] = 0x08;//status flag (charging enabled, contact closed)
@@ -823,7 +823,9 @@ void handleFrame() { // CAN Frames from the car
   inFrame.length = len;
   memcpy(inFrame.data.bytes, rxBuf,8);
 //  inFrame.data.bytes = rxBuf
-  
+
+
+  Serial.println(inFrame.id, HEX);
   lastrx = millis();
 
   if (inFrame.id == 0x24C)  {
